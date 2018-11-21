@@ -18,37 +18,37 @@ public class APIres {
 		System.out.println(reponse);
 	}
 	
-	public void connexion() {
+	public String connexion() {
 		Client client = ClientBuilder.newClient();
 		WebTarget webTarget = client.target("http://codeandplay.pw/epic-ws/epic/player/getIdEquipe/Team_Hmmm/DomiLeBoss");
 		Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON_TYPE);
 		Response responseConnexion = invocationBuilder.get();
 		
 		String reponseCo = responseConnexion.readEntity(String.class);
-		System.out.println(reponseCo);
+		return(reponseCo);
 	}
 	
-	public void initialisationPartie(String teamID) {
+	public String initialisationPartie(String teamID) {
 		Client client = ClientBuilder.newClient();
 		WebTarget webTarget = client.target("http://codeandplay.pw/epic-ws/epic/versus/next/"+teamID);
 		Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON_TYPE);
 		Response responseInit = invocationBuilder.get();
 		
 		String reponseIn = responseInit.readEntity(String.class);
-		System.out.println(reponseIn);
+		return(reponseIn);
 	}
 	
-	public void initialisationAffrontement(int numeroBot, String teamID) {
+	public String initialisationAffrontement(int numeroBot, String teamID) {
 		Client client = ClientBuilder.newClient();
 		WebTarget webTarget = client.target("http://codeandplay.pw/epic-ws/epic/practice/new/"+numeroBot+"/"+teamID);
 		Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON_TYPE);
 		Response responseInitAffront = invocationBuilder.get();
 		
 		String reponseAffront = responseInitAffront.readEntity(String.class);
-		System.out.println(reponseAffront);
+		return(reponseAffront);
 	}
 	
-	public void indiqueTourPartie(String gameID, String teamID) {
+	public String indiqueTourPartie(String gameID, String teamID) {
 		String url = "http://codeandplay.pw/epic-ws/epic/game/status/"+gameID+"/"+teamID;
 		Client client = ClientBuilder.newClient();
 		WebTarget webTarget = client.target(url);
@@ -56,16 +56,59 @@ public class APIres {
 		Response responseIndiqueTourPartie = invocationBuilder.get();
 		
 		String reponseTourPartie = responseIndiqueTourPartie.readEntity(String.class);
-		System.out.println(reponseTourPartie);
+		return(reponseTourPartie);
 	}
 	
-	public void retournePlateau(String gameID) {
+	public String retournePlateau(String gameID) {
 		Client client = ClientBuilder.newClient();
 		WebTarget webTarget = client.target("http://codeandplay.pw/epic-ws/epic/game/board/"+gameID+"?format=(JSON)"); //|String|XML on ne prend que du JSON
 		Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON_TYPE);
 		Response responseRetournePlateau = invocationBuilder.get();
 		
 		String reponsePlateau = responseRetournePlateau.readEntity(String.class);
-		System.out.println(reponsePlateau);
+		return(reponsePlateau);
+	}
+	
+	public String retournePlateau2(String gameID, String teamID) {
+		Client client = ClientBuilder.newClient();
+		WebTarget webTarget = client.target("http://codeandplay.pw/epic-ws/epic/game/board/"+gameID+"/"+teamID+"?format=(JSON)"); //|String|XML on ne prend que du JSON
+		Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON_TYPE);
+		Response responseRetournePlateau2 = invocationBuilder.get();
+		
+		String reponsePlateau2 = responseRetournePlateau2.readEntity(String.class);
+		return(reponsePlateau2);
+	}
+	
+	public String retourneDernierCoup(String gameID, String teamID) {
+		Client client = ClientBuilder.newClient();
+		WebTarget webTarget = client.target("http://codeandplay.pw/epic-ws/epic/game/getlastmove/"+gameID+"/"+teamID);
+		Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON_TYPE);
+		Response responseRetourneDernierCoup = invocationBuilder.get();
+		
+		String reponseDernierCoup = responseRetourneDernierCoup.readEntity(String.class);
+		return(reponseDernierCoup);
+	}
+	
+	public String jouerCoup(String gameID, String teamID, String move) {
+		Client client = ClientBuilder.newClient();
+		WebTarget webTarget = client.target("http://codeandplay.pw/epic-ws/epic/game/play/"+gameID+"/"+teamID+"/"+move);
+		Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON_TYPE);
+		Response responseRetourneDernierCoup = invocationBuilder.get();
+		
+		String reponseDernierCoup = responseRetourneDernierCoup.readEntity(String.class);
+		return(reponseDernierCoup);
+		
+		// move -> ORC,... pour les trois premiers tours
+		// move -> A1,ATTACK,E1$A2,DEFEND,E1$A3,REST,A3 pour les tours suivants
+	}
+	
+	public String nomAdversaire(String gameID, String teamID) {
+		Client client = ClientBuilder.newClient();
+		WebTarget webTarget = client.target("http://codeandplay.pw/epic-ws/epic/game/opponent/"+gameID+"/"+teamID);
+		Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON_TYPE);
+		Response responseNomAdversaire = invocationBuilder.get();
+		
+		String reponseNom = responseNomAdversaire.readEntity(String.class);
+		return(reponseNom);
 	}
 }
