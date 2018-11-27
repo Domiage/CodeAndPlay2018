@@ -18,17 +18,17 @@ public class APIres {
 		System.out.println(reponse);
 	}
 	
-	public String connexion() {
+	public String connexion(String identifiant, String mdp) {
 		Client client = ClientBuilder.newClient();
-		WebTarget webTarget = client.target("http://codeandplay.pw/epic-ws/epic/player/getIdEquipe/Team_Hmmm/DomiLeBoss");
+		WebTarget webTarget = client.target("http://codeandplay.pw/epic-ws/epic/player/getIdEquipe/"+identifiant+"/"+mdp);
 		Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON_TYPE);
 		Response responseConnexion = invocationBuilder.get();
 		
-		String reponseCo = responseConnexion.readEntity(String.class);
-		return(reponseCo);
+		String teamID = responseConnexion.readEntity(String.class);
+		return(teamID);
 	}
 	
-	public String initialisationPartie(String teamID) {
+	public String initialisationPartieEquipe(String teamID) {
 		Client client = ClientBuilder.newClient();
 		WebTarget webTarget = client.target("http://codeandplay.pw/epic-ws/epic/versus/next/"+teamID);
 		Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON_TYPE);
@@ -38,7 +38,7 @@ public class APIres {
 		return(reponseIn);
 	}
 	
-	public String initialisationAffrontement(int numeroBot, String teamID) {
+	public String initialisationAffrontementBot(int numeroBot, String teamID) {
 		Client client = ClientBuilder.newClient();
 		WebTarget webTarget = client.target("http://codeandplay.pw/epic-ws/epic/practice/new/"+numeroBot+"/"+teamID);
 		Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON_TYPE);
