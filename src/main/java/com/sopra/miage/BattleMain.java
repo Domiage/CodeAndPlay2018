@@ -60,23 +60,23 @@ public class BattleMain {
 		
 		APIres api  = new APIres();
 		//api.blab(); //méthode ping
-		//System.out.println("identifiant : " + teamName);
-		//System.out.println("mdp : " + password);
+		System.out.println("identifiant : " + teamName);
+		System.out.println("mdp : " + password);
 		
 		String teamID = api.connexion(teamName, password);
 		
-		practice(api, teamID);
+		//practice(api, teamID);
 		
 		
 		
-		/*
+		
 		System.out.println("teamID : " + teamID); //à faire pour toutes les variables -> ne pas les mettre en dur
 		System.out.println("");
 		
 		String gameID = api.initialisationPartieEquipe(teamID); // initialisation d'une partie
 		System.out.println("gameID contre équipe : " + gameID);
 		System.out.println("");
-		
+		/*
 		
 		String partieID = api.initialisationAffrontementBot(1, teamID); // retourne l'identifiant unique de la partie à jouer. -> dad8077e-6157-4603-b661-ac984876671c
 		System.out.println("partieID contre Bot : " + partieID);
